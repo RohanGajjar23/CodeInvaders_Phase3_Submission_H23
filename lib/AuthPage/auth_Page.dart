@@ -3,7 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:healthcare/appRoutes.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class databaseClass {}
+class databaseClass {
+  final DatabaseReference _database = FirebaseDatabase.instance.ref();
+  Future<void> addDataAfterLogin(User user) async {
+    try {
+      _database.child('users').child(user.uid).set({
+        'username': user.displayName,
+        'email': user.email,
+        // Add more data fields as needed
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+}
 
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
