@@ -8,8 +8,8 @@ class recipient_HomePage extends StatefulWidget {
   State<recipient_HomePage> createState() => _recipient_HomePageState();
 }
 
-Future<void> signOut() async {
-  await Auth().signOut();
+Future<void> signOut(BuildContext context) async {
+  await Auth().signOut(context);
 }
 
 class _recipient_HomePageState extends State<recipient_HomePage> {
@@ -22,7 +22,10 @@ class _recipient_HomePageState extends State<recipient_HomePage> {
           children: [
             InkWell(
               onTap: () {
-                signOut();
+                DatabaseClass().databaseReference.child("Rohan").set({
+                  "Rohan": 1,
+                });
+                signOut(context);
               },
               child: Container(
                 width: 200,
