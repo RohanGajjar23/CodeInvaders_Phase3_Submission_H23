@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "72510115325",
+    "project_id": "hackathonrr",
+    "storage_bucket": "hackathonrr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72510115325:android:73d7f1fde887f21a0e5d94",
+        "android_client_info": {
+          "package_name": "com.example.healthcare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "72510115325-fivg51jas8cp43na40tjceqm1tv17l8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFEzAtiZYGZNoEHf3jQ4OW2fFDCer5FKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "72510115325-fivg51jas8cp43na40tjceqm1tv17l8n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
