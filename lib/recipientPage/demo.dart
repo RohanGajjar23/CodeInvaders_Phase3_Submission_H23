@@ -20,7 +20,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(recipient.age);
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Healthcare User Page',
       theme: ThemeData(
         primarySwatch: Colors.blue,
