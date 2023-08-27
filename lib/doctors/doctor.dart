@@ -61,16 +61,16 @@ class _HomeScreenState extends State<DoctorHomeScreen> {
                 Api.auth.signOut();
                 Navigator.of(context).pushAndRemoveUntil(
                     PageTransition(
-                        child: AuthPage(),
+                        child: const AuthPage(),
                         type: PageTransitionType.leftToRightWithFade),
                     (route) => false);
               },
-              icon: Icon(Icons.exit_to_app_outlined)),
+              icon: const Icon(Icons.exit_to_app_outlined)),
         ],
         title: const Text('Doctors Page'),
       ),
       body: StreamBuilder(
-        stream: Api.firestore.collection('doctors').snapshots(),
+        stream: Api.firestore.collection('recipients').snapshots(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -92,15 +92,35 @@ class _HomeScreenState extends State<DoctorHomeScreen> {
                 );
               }
               final data = snapshot.data!.docs;
-              userDataList =
-                  data.map((e) => UserDataModel.fromMap(e.data())).toList();
+              userDataList = data
+                  .map((e) => UserDataModel.fromMap(e.data()))
+                  // .where((element) =>
+                  //     element.doctorId == Api.auth.currentUser!.uid.toString())
+                  .toList();
               return ListView.builder(
                 itemCount: userDataList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     title: Text(userDataList[index].name),
                     subtitle: Text('Age: ${userDataList[index].age}'),
-                    trailing: const Icon(Icons.arrow_forward),
+                    trailing: Container(
+                      width: 100,
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.done,
+                            color: Colors.green,
+                          ),
+                          SizedBox(
+                            width: 40,
+                          ),
+                          Icon(
+                            Icons.cancel,
+                            color: Colors.red,
+                          ),
+                        ],
+                      ),
+                    ),
                     onTap: () {
                       // Navigate to recipient details page
                       Navigator.of(context).push(PageTransition(

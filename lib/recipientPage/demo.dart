@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare/api/apis.dart';
+import 'package:healthcare/auth/auth_page.dart';
 import 'package:healthcare/models/date_model.dart';
 import 'package:healthcare/models/userDataModel.dart';
 import 'package:healthcare/recipientPage/recipient.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HealthData {
   final String title;
@@ -76,19 +79,29 @@ class _HealthUserPageState extends State<HealthUserPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Healthcare User Page'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Api.auth.signOut();
+                Navigator.of(context).pushAndRemoveUntil(
+                    PageTransition(
+                        child: AuthPage(),
+                        type: PageTransitionType.leftToRightWithFade),
+                    (route) => false);
+              },
+              icon: Icon(Icons.exit_to_app_outlined)),
+        ],
       ),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              trailing: const Icon(Icons.arrow_back_rounded),
-              onTap: () {
-                // Navigate to recipient details page
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              },
-            ),
+                trailing: const Icon(Icons.arrow_back_rounded),
+                onTap: () {
+                  // Navigate to recipient details page
+                  Navigator.of(context).pop();
+                }),
             const Padding(
               padding: EdgeInsets.all(20.0),
               child: Text(

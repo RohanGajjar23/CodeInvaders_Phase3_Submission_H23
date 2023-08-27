@@ -99,16 +99,16 @@ class _RecipientAdderState extends State<DoctorAdder> {
           date: userDate.toMap());
 
       final data =
-          await Api.firestore.collection('recipients').doc(patientName).get();
+          await Api.firestore.collection('doctors').doc(patientName).get();
       if (data.exists) {
         print("data exists");
         await Api.firestore
-            .collection('recipients')
+            .collection('doctors')
             .doc(patientName)
             .update(userData.toMap());
       } else {
         Api.firestore
-            .collection('recipients')
+            .collection('doctors')
             .doc(patientName)
             .set(userData.toMap());
       }

@@ -124,7 +124,9 @@ class _RecipientAdderState extends State<RecipientAdder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: _formkey,
@@ -279,7 +281,7 @@ class _RecipientAdderState extends State<RecipientAdder> {
               ),
               TextFormField(
                 onChanged: (value) {
-                  doctorID = value;
+                  condition = value;
                 },
                 // initialValue: Api.firestore.collection('users').doc(value)
                 decoration: InputDecoration(

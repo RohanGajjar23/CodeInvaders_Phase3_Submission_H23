@@ -97,7 +97,8 @@ class _AuthPageState extends State<AuthPage> {
                 uid: value.user!.uid,
                 name: userName,
                 email: email,
-                profession: _profession.toString());
+                profession: _profession.toString(),
+                id: Api.auth.currentUser!.uid.toString());
 
             //converting model to a hashmap and storing in database
             await Api.firestore
@@ -108,6 +109,13 @@ class _AuthPageState extends State<AuthPage> {
               setState(() {
                 _isAuthenticating = false;
               });
+              if (user.profession == Profession.doctor.toString()) {
+                Navigator.of(context).pushAndRemoveUntil(
+                    PageTransition(
+                        child: DoctorHomeScreen(),
+                        type: PageTransitionType.leftToRightWithFade),
+                    (route) => false);
+              }
               if (user.profession == Profession.recipient.toString()) {
                 Navigator.of(context).pushAndRemoveUntil(
                     PageTransition(
@@ -119,21 +127,16 @@ class _AuthPageState extends State<AuthPage> {
           });
         } catch (e) {
           //if something happen while creating account of use delete it firebase and signout
-          await Api.firestore
-              .collection('users')
-              .doc(Api.auth.currentUser!.uid)
-              .delete()
-              .then((value) {
-            setState(() {
-              _isAuthenticating = false;
-            });
-            Navigator.of(context).pushAndRemoveUntil(
-                PageTransition(
-                    child: const AuthPage(),
-                    type: PageTransitionType.leftToRightWithFade),
-                (route) => false);
-            Api.auth.signOut();
+
+          setState(() {
+            _isAuthenticating = false;
           });
+          Navigator.of(context).pushAndRemoveUntil(
+              PageTransition(
+                  child: const AuthPage(),
+                  type: PageTransitionType.leftToRightWithFade),
+              (route) => false);
+          Api.auth.signOut();
         }
       }
     }
