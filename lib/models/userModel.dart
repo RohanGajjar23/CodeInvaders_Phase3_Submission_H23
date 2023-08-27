@@ -1,16 +1,14 @@
 class UserModel {
   late String uid;
   late String name;
-  late int age;
-  late int roomNo;
-  late String assignedDoctor;
+  late String email;
+  late String profession;
 
   UserModel({
     required this.uid,
     required this.name,
-    required this.age,
-    required this.roomNo,
-    required this.assignedDoctor,
+    required this.email,
+    required this.profession,
   });
 
   //from map
@@ -18,9 +16,8 @@ class UserModel {
     return UserModel(
       uid: map['uid'] ?? '',
       name: map['name'] ?? '',
-      age: map['age'] ?? 0,
-      roomNo: map['roomNo'] ?? 0,
-      assignedDoctor: map['assignedDoctor'] ?? '',
+      email: map['email'] ?? '',
+      profession: map['profession'] ?? '',
     );
   }
 
@@ -30,9 +27,8 @@ class UserModel {
     return {
       "uid": uid,
       "name": name,
-      'age': age,
-      'roomNo': roomNo,
-      'assignedDoctor': assignedDoctor
+      'email': email,
+      'profession': profession,
     };
   }
 }

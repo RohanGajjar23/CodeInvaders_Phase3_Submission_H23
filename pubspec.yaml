@@ -40,7 +40,10 @@ dependencies:
   firebase_core: ^2.15.1
   firebase_database: ^10.2.5
   cloud_firestore: ^4.9.0
-  # firebase_database: ^
+  page_transition: ^2.0.9
+  lottie: ^2.6.0
+  intl: ^0.17.0
+  # search_choices:
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +69,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/animation/1.json
+    - assets/animation/2.json
     - assets/images/
   #   - images/a_dot_ham.jpeg
 

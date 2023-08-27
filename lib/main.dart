@@ -1,10 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healthcare/AuthPage/auth_Page.dart';
-import 'package:healthcare/AuthPage/widget_tree.dart';
-import 'package:healthcare/appRoutes.dart';
-import 'package:healthcare/recipientPage/recipient_HomePage.dart';
+import 'package:healthcare/Api/apis.dart';
+import 'package:healthcare/auth/auth_page.dart';
+// import 'package:healthcare/AuthPage/auth_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,14 +18,26 @@ class FlutterApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        routes: {
-          "/": (context) => Auth_Page(),
-          appRoutes.homeRoute: (context) => recipient_HomePage(),
-          appRoutes.loginRoute: (context) => Auth_Page(),
-        },
-        // home: const widget_Tree(),
+        home: StreamBuilder(
+          stream: Api.auth.authStateChanges(),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+                return const Scaffold(
+                  backgroundColor: Color.fromARGB(255, 238, 238, 166),
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              case ConnectionState.active:
+              case ConnectionState.done:
+                return const AuthPage();
+            }
+          },
+        ),
         theme: ThemeData(
-          fontFamily: GoogleFonts.lato().fontFamily,
+          textTheme: GoogleFonts.comfortaaTextTheme(),
         ));
   }
 }
